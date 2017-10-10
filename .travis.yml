@@ -1,9 +1,9 @@
 language: node_js
 node_js:
-- 6.3.1
-cache:
-  directories:
-  - node_modules
+  - '6.3.1'
+branches:
+  only:
+  - master
 before_install:
 - openssl aes-256-cbc -K $encrypted_d82c54a77d81_key -iv $encrypted_d82c54a77d81_iv
   -in .travis/id_rsa_github.enc -out ~/.ssh/id_rsa_github -d
@@ -21,6 +21,3 @@ script:
 - hexo clean
 - hexo generate
 - hexo deploy
-branches:
-  only:
-  - master
