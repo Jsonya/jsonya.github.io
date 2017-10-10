@@ -79,5 +79,5 @@ theme: indigo
 deploy:
   type: git
   repo:
-    github: git@github.com:JSONYA/jsonya.github.io.git
+    github: git@github.com:Jsonya/jsonya.github.io.git
   branch: gh-pages
