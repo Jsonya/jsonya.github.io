@@ -1,5 +1,5 @@
-# SoarLin@github
-Host SoarLin.github.com
+# Github
+Host github.com
 	HostName github.com
 	User Jsonya
 	StrictHostKeyChecking no

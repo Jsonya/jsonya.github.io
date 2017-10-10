@@ -8,8 +8,7 @@ cache:
     - node_modules
 
 before_install:
-  - openssl aes-256-cbc -K $encrypted_d82c54a77d81_key -iv $encrypted_d82c54a77d81_iv
-    -in id_rsa_github.enc -out ~\/.ssh/id_rsa_github -d
+  - openssl aes-256-cbc -K $encrypted_d82c54a77d81_key -iv $encrypted_d82c54a77d81_iv -in id_rsa_github.enc -out ~\/.ssh/id_rsa_github -d
   - chmod 600 ~/.ssh/id_rsa_github
   - eval $(ssh-agent)
   - ssh-add ~/.ssh/id_rsa_github
