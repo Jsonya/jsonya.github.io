@@ -77,4 +77,7 @@ theme: indigo
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo:
+    github: git@github.com:JSONYA/jsonya.github.io.git
+  branch: gh-pages
