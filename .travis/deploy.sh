@@ -8,3 +8,4 @@ cp .travis/ssh_config ~/.ssh/config
 git config --global user.name "Jsonya"
 git config --global user.email jsonya@163.com
 git clone git@github.com:Jsonya/jsonya.github.io.git .deploy
+npm run deploy
