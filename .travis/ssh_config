@@ -1,0 +1,8 @@
+# SoarLin@github
+Host SoarLin.github.com
+	HostName github.com
+	User Jsonya
+	StrictHostKeyChecking no
+	# 底下路徑需要根據實際 Travis CI 上存取解開後的 private key 位置
+	IdentityFile ~/.ssh/id_rsa_github
+	IdentitiesOnly yes
