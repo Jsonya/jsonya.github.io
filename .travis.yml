@@ -18,6 +18,8 @@ install:
 - npm install -g hexo
 - npm install hexo-cli -g
 - npm install
+before_script:
+- git clone git@github.com:yscoder/hexo-theme-indigo.git themes/indigo
 script:
 - hexo clean
 - hexo generate
