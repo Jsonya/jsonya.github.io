@@ -67,7 +67,7 @@ nvm alias default [version]
 7. 当前使用版本
 ```shell
 nvm current
-`````
+```
 
 ## 项目下
 正常来说项目目录下会有一个`.nvm`记录了项目所使用的`node`版本的，所以直接运行`nvm use`就可以切换node版本为项目所使用的版本
