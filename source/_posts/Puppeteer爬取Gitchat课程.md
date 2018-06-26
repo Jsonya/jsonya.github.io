@@ -65,8 +65,8 @@ async function gotoGitchat(page, browser) {
   await page.goto(GIT_CHAT_URL, { timeout: 6000000 });
   // 设置登录的cookie
   await page.evaluate(() => {
-    document.cookie="customerId=58e890d4857436a476a7a540";
-    document.cookie="customerToken=5bfa1ad0-470b-11e8-9a2d-c1e768ea8f10";
+    document.cookie="customerId=your id";
+    document.cookie="customerToken=your token";
     Promise.resolve();
   });
 }
