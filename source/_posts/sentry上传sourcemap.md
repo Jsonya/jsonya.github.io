@@ -9,6 +9,7 @@ tags:
 ---
 
 PS: 本文并没完全成文
+
 ### 前言
 阅读这篇文章的大前提是你已经创建了一个sentry项目，但是希望在sentry的报错中能够提示更多的信息，所以希望通过sourcemap来定位问题。这篇文章基于vue-cli中的webpack模式，其他模式原理一样。
 <span data-type="color" style="color:#F5222D">注意</span>：本文只是提供思路，并不可以用于生产环境，因为涉及到打包流程，而每个项目的打包方式并不一致，所以可以根据此思路去实现自己的上报流程。
@@ -21,7 +22,7 @@ PS: 本文并没完全成文
 ![1.jpg | center | 262x507](https://cdn.yuque.com/yuque/0/2018/jpeg/85168/1530582273583-8b66fa0f-3da1-470a-95b0-d7abaad98235.jpeg "")
 
 
-如果你已经创建过token，你的界面会和我一样，如果没创建，根据提示创济南即可，但注意一点的是，需要勾选project:write
+如果你已经创建过token，你的界面会和我一样，如果没创建，根据提示创建即可，但注意一点的是，需要勾选project:write， 复制对应的token
 
 
 ![2.jpg | center | 747x442](https://cdn.yuque.com/yuque/0/2018/jpeg/85168/1530582295319-39b405bc-aad5-4ca1-a615-654fc720d053.jpeg "")
@@ -164,7 +165,6 @@ plugins: [
   new SentryPlugin({
     include: './dist',
     release: process.env.RELEASE_VERSION,
-    deleteAfterCompile: true,
     configFile: 'sentry.properties',
     urlPrefix: 'http://127.0.0.1:6324/'
   })
