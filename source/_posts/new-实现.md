@@ -12,7 +12,7 @@ function Person(name, age) {
 }
 
 Person.prototype.sayHello = function() {
-  console.log(`My name is ${this.name}, I'm ${this.age} years old`)
+  console.log(`My name is ${this.name}, I'm ${this.age} years old`);
 }
 
 const jsonya = new Person('jsonya', 25);
@@ -46,7 +46,7 @@ function Person(name, age) {
   this.age = age;
 }
 Person.prototype.sayHello = function() {
-  console.log(`my name is ${this.name}, I'm ${this.age} years old`)
+  console.log(`my name is ${this.name}, I'm ${this.age} years old`);
 }
 // 执行
 const jsonya = New(Person, 'jsonya', 25);
@@ -74,7 +74,7 @@ function Person(name, age) {
   this.age = age;
 }
 Person.prototype.sayHello = function() {
-  console.log(`my name is ${this.name}, I'm ${this.age} years old`)
+  console.log(`my name is ${this.name}, I'm ${this.age} years old`);
 }
 
 const jsonya = New(Person)('jsonya', 25);
