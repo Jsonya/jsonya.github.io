@@ -7,6 +7,7 @@ tags:
 ---
 
 ## 生成ssh key
+
 ```shell
 ssh-keygen -t rsa -C "my@mail.com"
 ```
