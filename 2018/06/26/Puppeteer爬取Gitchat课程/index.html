@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-107275635-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src="https://www.google-analytics.com/analytics.js"></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Puppeteer爬取Gitchat课程 | 原质，纯粹 | 记录的是文字，回忆的是人生</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Gitchat,Puppeteer,爬虫">
+    <meta name="description" content="前言最近想起GitChat的会员要过期了，但是之前购买的达人课只看了一部分，过期不能看就很可惜了，毕竟有些课程质量还是挺好的，所以就想着把课程下载下来拉到本地去看，但是Gitchat的课程并不能够把整个课程下载，需要单个单个的下载，单纯的靠人力处理就只会浪费时间，更何况我是个小coder，尽然希望通过代码来实现，机器能做就就让机器去做，所以就想起了通过爬取的方式下载下来。也许你会问为什么会想到爬虫">
+<meta name="keywords" content="Gitchat,Puppeteer,爬虫">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Puppeteer爬取Gitchat课程">
+<meta property="og:url" content="https://jsonya.github.io/2018/06/26/Puppeteer爬取Gitchat课程/index.html">
+<meta property="og:site_name" content="原质，纯粹">
+<meta property="og:description" content="前言最近想起GitChat的会员要过期了，但是之前购买的达人课只看了一部分，过期不能看就很可惜了，毕竟有些课程质量还是挺好的，所以就想着把课程下载下来拉到本地去看，但是Gitchat的课程并不能够把整个课程下载，需要单个单个的下载，单纯的靠人力处理就只会浪费时间，更何况我是个小coder，尽然希望通过代码来实现，机器能做就就让机器去做，所以就想起了通过爬取的方式下载下来。也许你会问为什么会想到爬虫">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://cdn.yuque.com/yuque/0/2018/png/85168/1528807161742-684e0cf9-9dff-4ca4-b4f6-843d454be4be.png">
+<meta property="og:updated_time" content="2019-04-25T12:15:04.324Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Puppeteer爬取Gitchat课程">
+<meta name="twitter:description" content="前言最近想起GitChat的会员要过期了，但是之前购买的达人课只看了一部分，过期不能看就很可惜了，毕竟有些课程质量还是挺好的，所以就想着把课程下载下来拉到本地去看，但是Gitchat的课程并不能够把整个课程下载，需要单个单个的下载，单纯的靠人力处理就只会浪费时间，更何况我是个小coder，尽然希望通过代码来实现，机器能做就就让机器去做，所以就想起了通过爬取的方式下载下来。也许你会问为什么会想到爬虫">
+<meta name="twitter:image" content="https://cdn.yuque.com/yuque/0/2018/png/85168/1528807161742-684e0cf9-9dff-4ca4-b4f6-843d454be4be.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="原质，纯粹" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide">
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">暮城</h5>
+          <a href="mailto:jsonya@163.com" title="jsonya@163.com" class="mail">jsonya@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/">
+                <i class="icon icon-lg icon-home"></i>
+                Index
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives">
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/jsonya" target="_blank">
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Puppeteer爬取Gitchat课程</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Puppeteer爬取Gitchat课程</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-06-26T15:37:21.000Z" itemprop="datePublished" class="page-time">
+  2018-06-26
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#前言"><span class="post-toc-number">1.</span> <span class="post-toc-text">前言</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#技术选型"><span class="post-toc-number">2.</span> <span class="post-toc-text">技术选型</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#遇到的问题"><span class="post-toc-number">3.</span> <span class="post-toc-text">遇到的问题</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#爬虫实现"><span class="post-toc-number">4.</span> <span class="post-toc-text">爬虫实现</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#1）初始化浏览器"><span class="post-toc-number">4.0.1.</span> <span class="post-toc-text">1）初始化浏览器</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#2-跳转到首页并设置登录"><span class="post-toc-number">4.0.2.</span> <span class="post-toc-text">2) 跳转到首页并设置登录</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#3-获取已购课程"><span class="post-toc-number">4.0.3.</span> <span class="post-toc-text">3) 获取已购课程</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#4-获取下载的URL"><span class="post-toc-number">4.0.4.</span> <span class="post-toc-text">4) 获取下载的URL</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#5-下载课程"><span class="post-toc-number">4.0.5.</span> <span class="post-toc-text">5) 下载课程</span></a></li></ol></li></ol><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#总结"><span class="post-toc-number">5.</span> <span class="post-toc-text">总结</span></a></li>
+        </nav>
+    </aside>
+    
+<article id="post-Puppeteer爬取Gitchat课程" class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Puppeteer爬取Gitchat课程</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-06-26 15:37:21" datetime="2018-06-26T15:37:21.000Z" itemprop="datePublished">2018-06-26</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none">
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近想起<code>GitChat</code>的会员要过期了，但是之前购买的达人课只看了一部分，过期不能看就很可惜了，毕竟有些课程质量还是挺好的，所以就想着把课程下载下来拉到本地去看，但是<code>Gitchat</code>的课程并不能够把整个课程下载，需要单个单个的下载，单纯的靠人力处理就只会浪费时间，更何况我是个小<code>coder</code>，尽然希望通过代码来实现，机器能做就就让机器去做，所以就想起了通过爬取的方式下载下来。<br>也许你会问为什么会想到爬虫实现，首先了解下什么是爬虫，从定义上来说，爬虫是通过<span data-type="color" style="color:rgb(38, 38, 38)"><span data-type="background" style="background-color:rgb(255, 255, 255)">脚本请求网页并分析网页来提取有效信息的一种行为，我现在的需求就是能够希望获取到所有的课程并下载，其中最重要的一点就是课程信息的获取，毫无疑问爬虫是能够实现的并且是最佳的实现方式。</span></span></p>
+<h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><ul>
+<li><strong>浏览器环境</strong><br>  因为这次爬取都是需要基于浏览器环境进行的，所以需要有浏览器环境的支持，目前达到要求的可选有<code>puppeteer</code>、<span data-type="color" style="color:rgb(38, 38, 38)"><span data-type="background" style="background-color:rgb(255, 255, 255)"><code>phantomjs</code></span></span><span data-type="color" style="color:rgb(38, 38, 38)"><span data-type="background" style="background-color:rgb(255, 255, 255)">、</span></span><span data-type="color" style="color:rgb(38, 38, 38)"><span data-type="background" style="background-color:rgb(255, 255, 255)"><code>selenium-webdriver</code></span></span>；但是后两者环境配置复杂并且难用的api决定了难以担当此任；</li>
+<li><span data-type="color" style="color:rgb(38, 38, 38)"><span data-type="background" style="background-color:rgb(255, 255, 255)"><strong>解析文档</strong></span></span><br>  毋庸置疑<code>cheerio</code>是目前<code>node</code>端爬虫最好用的dom解析库，它<span data-type="color" style="color:rgb(38, 38, 38)"><span data-type="background" style="background-color:rgb(255, 255, 255)">具备了像 </span></span><code>jquery</code><span data-type="color" style="color:rgb(38, 38, 38)"><span data-type="background" style="background-color:rgb(255, 255, 255)"> 一样遍历跟操作DOM元素的能力，当然它只拥有解析能力，并没有事件函数；</span></span></li>
+</ul>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>也许你会问，为什么爬虫能够解决我的问题？</p>
+<ul>
+<li><p><strong>登录账号问题</strong><br>  首先，Gitchat是没有输入框登录，它的登录方式是通过微信扫描二维码来登录，也就是和微信服务有一层绑定关系，所以第一步要解决的就是怎么绕过这层扫描登录；所以我首先想到的就是有没有通过<code>cookie</code>来校验登录状态，通过分析登录前后的<code>cookie</code>的，发现其中的一些差异极有可能是和账号有关的，所以直接把登录态的<code>cookie</code>获取出来来模拟登录，没想到真的成功了。。。</p>
+</li>
+<li><p><strong>跳转到具体课程</strong><br>  通过对页面的分析得知，Gitchat里面的每个大课下的小课跳转都是通过js的<code>onclick</code>函数来动态控制的，所以需要分析<code>onclick</code>函数下的跳转规律，发现下面一行代码</p>
+</li>
+</ul>
+<p><img src="https://cdn.yuque.com/yuque/0/2018/png/85168/1528807161742-684e0cf9-9dff-4ca4-b4f6-843d454be4be.png" alt="image.png | left | 719x26"></p>
+<pre><code>然后通过正则把跳转需要的`columnId`、`id`拿到，最终也实现了跳转课程
+</code></pre><ul>
+<li><p><strong>获取下载链接</strong><br>  最初的想法是通过<code>puppeteer</code>来模拟点击的方式来跳转下载链接的，但是奇怪的是跳转后的page并不是之前创建的<code>page</code>，所以并不能够获取上下文环境，所以对应的api也就不能用了，所以这种方式失败了；最后分析整个文档得知下载的链接隐藏在了<code>script</code>里面，所以最终还是通过正则表达式匹配出来。</p>
+</li>
+<li><p><strong>没有PDF下载的情况</strong><br>  某些课程下其实并没有提供下载功能，所以并不能够通过获取pdf链接的方式来下载，所以只能够寻求别的方法，想到既然<code>chrome</code>能够做的<code>puppeteer</code>都能做，那当然想到截屏的功能了，所以找了下<code>puppeteer</code>截图并打印的api，最终实现。</p>
+</li>
+</ul>
+<h2 id="爬虫实现"><a href="#爬虫实现" class="headerlink" title="爬虫实现"></a>爬虫实现</h2><h4 id="1）初始化浏览器"><a href="#1）初始化浏览器" class="headerlink" title="1）初始化浏览器"></a>1）初始化浏览器</h4><p>利用<code>puppeteer</code>来创建浏览器环境<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始化浏览器</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">openBrowser</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 创建浏览器</span></span><br><span class="line">  <span class="keyword">const</span> browser = <span class="keyword">await</span> puppeteer.launch(&#123;</span><br><span class="line">    <span class="comment">// 这个属性是控制是否有GUI界面的</span></span><br><span class="line">    headless: <span class="literal">true</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 创建标签页</span></span><br><span class="line">  <span class="keyword">const</span> page = <span class="keyword">await</span> browser.newPage();</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    browser,</span><br><span class="line">    page,</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-跳转到首页并设置登录"><a href="#2-跳转到首页并设置登录" class="headerlink" title="2) 跳转到首页并设置登录"></a>2) 跳转到首页并设置登录</h4><p>通过对比登陆前后的<code>cookie</code>，分析出<code>customerId</code>、<code>customerToken</code>是确定是否登录的参数，所以在跳转到首页后立马设置<code>cookie</code>值，保证下面的请求都是已登录状态<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 跳转首页</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">gotoGitchat</span>(<span class="params">page, browser</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 请求gitchat首页</span></span><br><span class="line">  <span class="keyword">await</span> page.goto(GIT_CHAT_URL, &#123; <span class="attr">timeout</span>: <span class="number">6000000</span> &#125;);</span><br><span class="line">  <span class="comment">// 设置登录的cookie</span></span><br><span class="line">  <span class="keyword">await</span> page.evaluate(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.cookie=<span class="string">"customerId=your id"</span>;</span><br><span class="line">    <span class="built_in">document</span>.cookie=<span class="string">"customerToken=your token"</span>;</span><br><span class="line">    <span class="built_in">Promise</span>.resolve();</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-获取已购课程"><a href="#3-获取已购课程" class="headerlink" title="3) 获取已购课程"></a>3) 获取已购课程</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取已购课程列表</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getOrderColumns</span>(<span class="params">page</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 跳转到我的已购课程</span></span><br><span class="line">  <span class="keyword">let</span> columns = <span class="keyword">await</span> page.goto(<span class="string">`<span class="subst">$&#123;GIT_CHAT_URL&#125;</span>/gitchat/ordered/columns`</span>, &#123; <span class="attr">timeout</span>: <span class="number">6000000</span> &#125;);</span><br><span class="line">  <span class="comment">// 获取dom</span></span><br><span class="line">  <span class="keyword">let</span> columnContent = <span class="keyword">await</span> page.content();</span><br><span class="line">  <span class="comment">// 加载dom</span></span><br><span class="line">  <span class="keyword">const</span> $ = cheerio.load(columnContent);</span><br><span class="line">  <span class="comment">// 获取已购列表</span></span><br><span class="line">  <span class="keyword">const</span> column = $(<span class="string">'.column'</span>);</span><br><span class="line">  <span class="comment">// 返回链接和标题</span></span><br><span class="line">  <span class="keyword">return</span> _.map(column, (item, index) =&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      link: item.attribs.href,</span><br><span class="line">      title: $(<span class="string">'.column .columnInfo .columnTitle'</span>)[index].children[<span class="number">0</span>].data,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="4-获取下载的URL"><a href="#4-获取下载的URL" class="headerlink" title="4) 获取下载的URL"></a>4) 获取下载的URL</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取下载url</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">getDownLoadUrl</span>(<span class="params">page, link</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 跳转到具体课程页</span></span><br><span class="line">  <span class="keyword">const</span> column = <span class="keyword">await</span> page.goto(<span class="string">`<span class="subst">$&#123;GIT_CHAT_URL&#125;</span><span class="subst">$&#123;link&#125;</span>`</span>, &#123; <span class="attr">timeout</span>: <span class="number">6000000</span> &#125;);</span><br><span class="line">  <span class="keyword">const</span> topicContent = <span class="keyword">await</span> page.$$(<span class="string">'.columnTopics .topicTitle'</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> pageContent = <span class="keyword">await</span> page.content();</span><br><span class="line">  <span class="keyword">const</span> $ = cheerio.load(pageContent);</span><br><span class="line">  </span><br><span class="line">  <span class="comment">// 将课程的地址返回</span></span><br><span class="line">  <span class="keyword">return</span> _.reduce($(<span class="string">'.topicTitle'</span>), (result, item, index) =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> clickCallback = $(<span class="string">'.topicTitle'</span>).eq(index).attr(<span class="string">'onclick'</span>);</span><br><span class="line">    <span class="keyword">const</span> title = $(<span class="string">'.titleText'</span>).eq(index).text();</span><br><span class="line">    <span class="keyword">const</span> idsString = clickCallback.replace(<span class="regexp">/(\[)|(\])|\s+|\'|(\()|(\))/g</span>, <span class="string">''</span>);</span><br><span class="line">    <span class="keyword">const</span> ids = idsString.replace(<span class="string">'clickOnTopic'</span>, <span class="string">''</span>).split(<span class="string">','</span>);</span><br><span class="line"></span><br><span class="line">    result.push(&#123;</span><br><span class="line">      link: !_.isEmpty(ids) ? <span class="string">`<span class="subst">$&#123;GIT_CHAT_URL&#125;</span>/gitchat/column/<span class="subst">$&#123;ids[<span class="number">1</span>]&#125;</span>/topic/<span class="subst">$&#123;ids[<span class="number">0</span>]&#125;</span>`</span> : <span class="string">''</span>,</span><br><span class="line">      title,</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;, []);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="5-下载课程"><a href="#5-下载课程" class="headerlink" title="5) 下载课程"></a>5) 下载课程</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 下载对应的pdf,如果没有pdf文件下载，就打印页面</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">downColumns</span>(<span class="params">page, targetLink</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">// 获取课程地址</span></span><br><span class="line">    <span class="keyword">const</span> downLoadInfo = <span class="keyword">await</span> getDownLoadUrl(page, targetLink.link);</span><br><span class="line">    <span class="comment">// 创建课程文件夹</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`【创建<span class="subst">$&#123;targetLink.title&#125;</span>文件夹】`</span>)</span><br><span class="line">    <span class="keyword">await</span> fs.mkdir(path.join(__dirname, <span class="string">'/columns'</span>, targetLink.title), <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (err) <span class="keyword">throw</span> err;</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历下载所有课程</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; downLoadInfo.length; i++) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">`【获取第<span class="subst">$&#123;i&#125;</span>课下载链接】`</span>);</span><br><span class="line">      <span class="keyword">const</span> contentRegx = <span class="regexp">/window.location.href = '([^']+)'/</span>;</span><br><span class="line">      <span class="keyword">const</span> downUrl = downLoadInfo[i].link;</span><br><span class="line">      <span class="keyword">const</span> downloadPath = path.join(__dirname, <span class="string">'columns'</span>, targetLink.title, <span class="string">`<span class="subst">$&#123;downLoadInfo[i].title&#125;</span>.pdf`</span>);</span><br><span class="line">      <span class="comment">// 跳转下载地址页</span></span><br><span class="line">      <span class="keyword">const</span> gotoDownload = <span class="keyword">await</span> page.goto(downUrl, &#123; <span class="attr">timeout</span>: <span class="number">6000000</span> &#125;);</span><br><span class="line">      <span class="comment">// 获取文档内容</span></span><br><span class="line">      <span class="keyword">const</span> downContent = <span class="keyword">await</span> page.content();</span><br><span class="line">      <span class="comment">// 如果没有下载链接的情况下，就执行截屏打印操作</span></span><br><span class="line">      <span class="keyword">if</span> (!contentRegx.test(downContent)) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'【没有下载链接】：即将打印成PDF'</span>);</span><br><span class="line">        <span class="comment">// 因为gitchat页面头部和底部都有导航遮挡，所以需要把他们从dom树隐藏掉</span></span><br><span class="line">        <span class="keyword">await</span> page.$<span class="built_in">eval</span>(<span class="string">'body'</span>, body =&gt; &#123;</span><br><span class="line">          body.querySelector(<span class="string">'#header'</span>).style.display = <span class="string">'none'</span>;</span><br><span class="line">          body.querySelector(<span class="string">'#commentModal'</span>).nextSibling.style.display = <span class="string">'none'</span>;</span><br><span class="line">          <span class="built_in">Promise</span>.resolve();</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">// 截屏</span></span><br><span class="line">        <span class="keyword">await</span> page.emulateMedia(<span class="string">'screen'</span>);</span><br><span class="line">        <span class="comment">// 打印</span></span><br><span class="line">        <span class="keyword">await</span> page.pdf(&#123; <span class="attr">path</span>: downloadPath &#125;);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">`【打印完成】: <span class="subst">$&#123;downLoadInfo[i].title&#125;</span>`</span>);</span><br><span class="line">        <span class="keyword">await</span> sleep(<span class="number">1000</span>);</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">const</span> url = downContent.match(contentRegx)[<span class="number">1</span>];</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">`【下载链接】:<span class="subst">$&#123;url&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 请求下载链接并以strem形式写入文件</span></span><br><span class="line">      <span class="keyword">const</span> downLoadReq = request.get(url);</span><br><span class="line">      downLoadReq.pipe(fs.createWriteStream(downloadPath));</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'【下载完成】'</span>);</span><br><span class="line">      <span class="keyword">await</span> sleep(<span class="number">1000</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">`【ErrorTip】: <span class="subst">$&#123;e&#125;</span>`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>这篇文章主要是讲解一下爬虫实现思路和我实现过程遇到的问题，并没有涉及太多的<code>puppeteer</code>的api操作，具体的操作会在学习总结那里做记录，并且实现代码也有更好的写法，比如可以并发下载（通过打开多个窗口实现）、加入重试机制等。但是毕竟只是为了解决自己的需求，怎么简单怎么来嘛哈哈。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+
+        
+    </div>
+    <footer>
+        <a href="https://jsonya.github.io">
+            <img src="/img/avatar.jpg" alt="暮城">
+            暮城
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Gitchat/">Gitchat</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Puppeteer/">Puppeteer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/爬虫/">爬虫</a></li></ul>
+
+
+            
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/07/03/sentry上传sourcemap/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">sentry上传sourcemap</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/03/26/Centos-使用nvm-并安装node环境/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Centos 使用nvm 并安装node环境</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style="display:none">
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style="display:none">
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>暮城 &copy; 2017 - 2019</span>
+            <span>
+                
+                <a href="http://www.miitbeian.gov.cn/" target="_blank">粤ICP备19036939号-1</a><br>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: false, REWARD: false };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
