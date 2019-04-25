@@ -1,35 +1,29 @@
 language: node_js
-
 node_js:
-  - '6'
-
+- '6'
 cache:
   yarn: true
   directories:
-    - node_modules
-
+  - node_modules
 branches:
   only:
   - raw
-
 before_install:
-  - curl -o- -L https://yarnpkg.com/install.sh | bash
-  - export PATH=$HOME/.yarn/bin:$PATH
-  - openssl aes-256-cbc -K $encrypted_d82c54a77d81_key -iv $encrypted_d82c54a77d81_iv
-    -in .travis/id_rsa_github.enc -out ~/.ssh/id_rsa_github -d
-  - chmod 600 ~/.ssh/id_rsa_github
-  - eval $(ssh-agent)
-  - ssh-add ~/.ssh/id_rsa_github
-  - cp .travis/ssh_config ~/.ssh/config
-  - git config --global user.name "Jsonya"
-  - git config --global user.email jsonya@163.com
-  - git clone --depth=1 git@github.com:Jsonya/hexo-indigo.git themes/indigo
-  - git clone git@github.com:Jsonya/jsonya.github.io.git -b master --single-branch .deploy
-
+- curl -o- -L https://yarnpkg.com/install.sh | bash
+- export PATH=$HOME/.yarn/bin:$PATH
+- openssl aes-256-cbc -K $encrypted_40bcee96180e_key -iv $encrypted_40bcee96180e_iv
+  -in .travis/id_rsa_github.enc -out ~/.ssh/id_rsa_github -d
+- chmod 600 ~/.ssh/id_rsa_github
+- eval $(ssh-agent)
+- ssh-add ~/.ssh/id_rsa_github
+- cp .travis/ssh_config ~/.ssh/config
+- git config --global user.name "Jsonya"
+- git config --global user.email jsonya@163.com
+- git clone --depth=1 git@github.com:Jsonya/hexo-indigo.git themes/indigo
+- git clone git@github.com:Jsonya/jsonya.github.io.git -b master --single-branch .deploy
 install:
-  - yarn install --pure-lockfile
-
+- yarn install --pure-lockfile
 script:
-  - hexo clean
-  - hexo generate
-  - hexo deploy
+- hexo clean
+- hexo generate
+- hexo deploy
